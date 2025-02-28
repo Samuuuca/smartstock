@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Lista de Itens</title>
+</head>
+
+<body>
+    <div class="bg-gray-100 p-6">
+        <h2 class="text-center font-bold">Lista de Itens</h2>
+        <table class="mx-auto border border-black p-4 rounded-lg shadow-lg">
+            <thead class="border border-black p-4 rounded-lg">
+                <tr class="bg-gray-200">
+                    <th class="p-2">ID</th>
+                    <th>Nome</th>
+                    <th>Valiadade Item</th>
+                    <th>Categoria</th>
+                    <th class="p-2">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, dados in documento_itens.items() %}
+                <tr>
+                    <td class="border border-black m-2">{{ id }}</td>
+                    <td class="border border-black">{{ dados['nome_item'] }}</td>
+                    <td class="border border-black validade_item">{{ dados['validade_item'] }}</td>
+                    <td class="border border-black">{{ dados['categoria_item'] }}</td>
+                    <td class="flex justify-center gap-2 m-2">
+                        <a href="{{ url_for('hello_world', id=id) }}" class="btn"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24">
+                                <path
+                                    d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
+                            </svg></a>
+                        <a href="{{ url_for('hello_world', id=id) }}" class="btn">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const dataAtual = new Date();
+
+            document.querySelectorAll('.validade_item').forEach(item => {
+                const dataItem = new Date(item.textContent);
+
+                if (dataItem < dataAtual) {
+                    item.parentElement.classList.add('bg-red-200');
+                }else if (dataItem  < dataAtual + 7) {
+                    item.parentElement.classList.add('bg-yellow-200');
+                } else {
+                    
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

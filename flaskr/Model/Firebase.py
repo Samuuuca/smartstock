@@ -13,7 +13,6 @@ class Firebase:
 
     def adicionarItem(self,requestItens):
         
-
         compraValue = { 
             "data_compra": requestItens["data_compra"],
             "local_compra": requestItens["local_compra"],
@@ -36,11 +35,11 @@ class Firebase:
     
     def getDocument(self, name_document):
 	
-        docs = self.db.collection(name_document).stream()
+        docs = self.db.collection(name_document).order_by("data_validade", direction=firestore.Query.DESCENDING).stream()
         
         documentInfo = {}
+        
         for doc in docs:
-
             documentInfo.setdefault(f"{doc.id}", doc.to_dict())
 
         return documentInfo

@@ -29,14 +29,6 @@
             font-weight: bold;
         }
 
-        input,
-        select,
-        button {
-            display: block;
-            width: 100%;
-            height: 30px;
-            margin-bottom: 10px;
-        }
 
         button {
             background-color: #28a745;
@@ -67,33 +59,37 @@
 <body>
     <div class="container">
         <h2 class="font-bold text-center">Cadastrar Item</h2>
-        <form action="/processarItem" method="post">
+        <form action="/processarItem" method="post" class="m-2">
 
             <label for="local"> Local de Compra: </label>
-            <input type="text" id="local" name="local" required>
+            <input class="border w-full h-8 rounded-md" type="text" id="local" name="local" required>
 
             <label for="valor"> Valor Compra: </label>
-            <input type="number" id="valor" name="valor" required>
+            <input class="border w-full h-8 rounded-md" type="number" id="valor" name="valor" required>
 
-            <label for="date">Data da Compra:</label>
-            <input type="date" id="date" name="date" required>
+            <div class="flex flex-col items-center m-3">
+                <label class="text-center w-full" for="date">Data da Compra:</label>
+                <input  class="w-2/3 border p-1 rounded-md" type="date" id="date" name="date" required>
+            </div>
+
 
             <div id="items-container">
-                <div class="flex">
+                <div class="flex gap-2">
 
-                    <div class="w-1/3">
-                        <label for="item">Nome do Item:</label>
-                        <input type="text" name="item[]" placeholder="Item" required>
+                    <div class="w-1/3 flex flex-col items-center">
+                        <label class="text-center" for="item"> Nome do Item </label>
+                        <input class="border p-1 rounded-md w-full h-7 rounded-md" type="text" name="item[]" placeholder="Item"
+                            required>
                     </div>
 
-                    <div class="w-1/3">
-                        <label for="date_validade">Validade Item:</label>
-                        <input type="date" name="date_validade[]" required>
+                    <div class="w-1/3 flex flex-col items-center">
+                        <label class="text-center" for="date_validade"> Validade Item </label>
+                        <input class="border w-full p-1 rounded-md" type="date" name="date_validade[]" required>
                     </div>
 
-                    <div class="w-1/3">
-                        <label for="categoria">Categoria:</label>
-                        <select name="categoria[]" required>
+                    <div class="w-1/3 flex flex-col items-center">
+                        <label class="text-center" for="categoria"> Categoria </label>
+                        <select class="border w-full p-1 rounded-md" name="categoria[]" required>
                             <option value="alimenticio">Alimentício</option>
                             <option value="liquido">Líquido</option>
                             <option value="cereal">Cereal</option>
@@ -104,10 +100,15 @@
                 </div>
             </div>
 
-            <button type="button" onclick="adicionarItem()">Adicionar Item</button>
-            <button type="submit">Cadastrar</button>
+            <div class="flex flex-col m-1 gap-1">
+                <button type="button" onclick="adicionarItem()">Adicionar Item</button>
+                <button type="submit">Cadastrar</button>
+            </div>
         </form>
-        <button type="submit">Cadastrar via QrCode</button>
+        <div class="flex justify-center">
+            <button class="w-1/2" type="submit">Cadastrar via QrCode</button>
+        </div>
+
     </div>
 
     <script>
@@ -116,19 +117,19 @@
             let newItem = document.createElement("div");
             newItem.classList.add("flex");
             newItem.innerHTML = `
-                <div class="w-1/4">
-                    <label for="item">Nome do Item:</label>
-                    <input type="text" name="item[]" placeholder="Item" required>
+                <div class="w-1/3 flex flex-col items-center">
+                    <label class="text-center" for="item">Nome do Item:</label>
+                    <input class="border p-1 rounded-md w-full h-7 rounded-md" type="text" name="item[]" placeholder="Item" required>
                 </div>
 
-                <div class="w-1/4">
-                    <label for="date_validade">Validade Item:</label>
-                    <input type="date" name="date_validade[]" required>
+                <div class="w-1/3 flex flex-col items-center">
+                    <label class="text-center" for="date_validade">Validade Item:</label>
+                    <input class="border w-full p-1 rounded-md" type="date" name="date_validade[]" required>
                 </div>
 
-                <div class="w-1/4">
-                    <label for="categoria">Categoria:</label>
-                    <select name="categoria[]" required>
+                <div class="w-1/3 flex flex-col items-center">
+                    <label class="text-center" for="categoria">Categoria:</label>
+                    <select class="border w-full p-1 rounded-md" name="categoria[]" required>
                         <option value="alimenticio">Alimentício</option>
                         <option value="liquido">Líquido</option>
                         <option value="cereal">Cereal</option>
@@ -136,7 +137,7 @@
                     </select>
                 </div>
 
-                <div class="w-1/4">
+                <div class="w-1/5 flex flex-col items-center justify-center">
                     <button type="button" class="remove-btn" onclick="removerItem(this)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
@@ -148,7 +149,7 @@
         }
 
         function removerItem(button) {
-            button.parentElement.remove();
+            button.parentElement.parentElement.remove();
         }
     </script>
 </body>
